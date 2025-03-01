@@ -3,6 +3,6 @@ print("Hello, World!")
 
 
 def main():
-    TextNode("Hello, World!", "bold", "https://www.example.com")
+    print(TextNode("Hello, World!", TextType.BOLD, "https://www.example.com"))
 
 main()
