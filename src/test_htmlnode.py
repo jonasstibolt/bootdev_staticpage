@@ -1,6 +1,7 @@
 import unittest
 
 from htmlnode import HTMLNode, LeafNode, ParentNode
+
 class TestLeafNode(unittest.TestCase):
     def test_eq(self):
         node1 = LeafNode("p", "Hello, World!")
@@ -82,4 +83,4 @@ class TestHTMLNode(unittest.TestCase):
         self.assertEqual(parent_node.to_html(), "<div></div>")
 
 if __name__ == "__main__":
-    unittest.main
+    unittest.main()
