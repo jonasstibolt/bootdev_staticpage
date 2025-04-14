@@ -120,6 +120,6 @@ def text_to_textnodes(text):
 
     return nodes
 
-# def markdown_to_blocks(markdown):
-#     lines = markdown.split("\n\n")
-#     return lines
+def markdown_to_blocks(markdown):
+    lines = markdown.split("\n\n")
+    return lines
