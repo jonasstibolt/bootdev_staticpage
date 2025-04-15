@@ -121,5 +121,11 @@ def text_to_textnodes(text):
     return nodes
 
 def markdown_to_blocks(markdown):
-    lines = markdown.split("\n\n")
-    return lines
+    raw_blocks = markdown.split("\n\n")
+    result = []
+    for block in raw_blocks:
+        block = block.strip()
+        if not block:
+            continue
+        result.append(block)
+    return result
