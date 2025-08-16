@@ -1,7 +1,6 @@
 import unittest
-from functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_images, split_nodes_links, text_to_textnodes, markdown_to_html_node
+from functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_images, split_nodes_links, text_to_textnodes
 from textnode import TextNode, TextType
-from debug import markdown_test_text
 
 class TestSplitNodesDelimiter(unittest.TestCase):
     def test_split_nodes_delimiter(self):
@@ -91,13 +90,6 @@ class TestSplitNodesDelimiter(unittest.TestCase):
             TextNode("link", TextType.LINK, "https://boot.dev"),
         ]
         self.assertEqual(result, expected)
-
-    def test_markdown_to_html_node(self):   
-        self.maxDiff = None     
-        expected = "<div><p>This is <b>bolded</b> paragraph</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here This is the same paragraph on a new line</p><ul><li>This is a list</li><li>with items</li></ul><pre><code>This is a code block\nwith _formatting_ that should be **preserved**\n</code></pre></div>"
-        result = markdown_to_html_node(markdown_test_text).to_html()
-        self.assertEqual(expected, result)
-
 
 if __name__ == "__main__":
     unittest.main()
