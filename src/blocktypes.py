@@ -5,8 +5,8 @@ class BlockType(Enum):
     HEADING = "heading"
     CODE = "code"
     QUOTE = "quote"
-    UNORDERED_LIST = "unordered_list"
-    ORDERED_LIST = "ordered_list"
+    ULIST = "unordered_list"
+    OLIST = "ordered_list"
 
     def __repr__(self):
         return self.value
@@ -23,13 +23,11 @@ def block_to_block_type(block):
     if all(line.strip().startswith(">") for line in lines):
             return BlockType.QUOTE
     if all(line.strip().startswith("- ") for line in lines):
-            return BlockType.UNORDERED_LIST
+            return BlockType.ULIST
     for line in lines:
         index += 1
         if line.startswith(f"{index}. "):
-            return BlockType.ORDERED_LIST
+            return BlockType.OLIST
     else:
         return BlockType.PARAGRAPH
     
-def markdown_to_html_node(markdown):
-     pass

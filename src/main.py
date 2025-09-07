@@ -1,5 +1,13 @@
 from textnode import TextNode, TextType
-print("Hello, World!")
+import os, shutil
+
+def generate_static():
+    current_dir = os.path.dirname(__file__)
+    if os.path.isdir(os.path.join(current_dir, "..", "public")):
+        pass
+        
+        
+
 
 
 def main():

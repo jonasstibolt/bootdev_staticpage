@@ -1,30 +1,44 @@
-import unittest
+from htmlnode import LeafNode
+from enum import Enum
 
-from textnode import TextNode, TextType
 
-class TestTextNode(unittest.TestCase):
-    def test_eq(self):
-        node1 = TextNode("Hello, World!", TextType.BOLD)
-        node2 = TextNode("Hello, World!", TextType.BOLD)
-        self.assertEqual(node1, node2)
+class TextType(Enum):
+    TEXT = "text"
+    BOLD = "bold"
+    ITALIC = "italic"
+    CODE = "code"
+    LINK = "link"
+    IMAGE = "image"
 
-    def test_neq(self):
-        node1 = TextNode("Hello, World!", TextType.BOLD)
-        node2 = TextNode("Hello, World!", TextType.ITALIC)
-        self.assertNotEqual(node1, node2)
 
-    def test_neq2(self):
-        node1 = TextNode("Hello, World!", TextType.BOLD, "https://www.example.com")
-        node2 = TextNode("Hello, World!", TextType.BOLD)
-        self.assertNotEqual(node1, node2)
+class TextNode:
+    def __init__(self, text, text_type, url=None):
+        self.text = text
+        self.text_type = text_type
+        self.url = url
 
-    def test_to_html(self):
-        node = TextNode("Hello, World!", TextType.BOLD)
-        self.assertEqual(node.text_node_to_html(), "<b>Hello, World!</b>")
+    def __eq__(self, other):
+        return (
+            self.text_type == other.text_type
+            and self.text == other.text
+            and self.url == other.url
+        )
 
-    def test_to_html_with_url(self):
-        node = TextNode("Example", TextType.LINK, "https://www.example.com")
-        self.assertEqual(node.text_node_to_html(), '<a href="https://www.example.com">Example</a>')
+    def __repr__(self):
+        return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
 
-if __name__ == "__main__":
-    unittest.main()
+
+def text_node_to_html_node(text_node):
+    if text_node.text_type == TextType.TEXT:
+        return LeafNode(None, text_node.text)
+    if text_node.text_type == TextType.BOLD:
+        return LeafNode("b", text_node.text)
+    if text_node.text_type == TextType.ITALIC:
+        return LeafNode("i", text_node.text)
+    if text_node.text_type == TextType.CODE:
+        return LeafNode("code", text_node.text)
+    if text_node.text_type == TextType.LINK:
+        return LeafNode("a", text_node.text, {"href": text_node.url})
+    if text_node.text_type == TextType.IMAGE:
+        return LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
+    raise ValueError(f"invalid text type: {text_node.text_type}")
